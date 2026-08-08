@@ -1,7 +1,7 @@
 # specify base image from dockerhub
-FROM node:14-alpine3.10
+FROM node:20-alpine
 
-LABEL version="1.0"
+LABEL version="2.0"
 LABEL description="Development image for the Library MERN API"
 
 # workdir is where our code shall live in the container

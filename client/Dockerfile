@@ -1,4 +1,4 @@
-FROM node:14-alpine3.10
+FROM node:16-alpine
 
 LABEL version="1.0"
 LABEL description="React Frontend for the Library API"
