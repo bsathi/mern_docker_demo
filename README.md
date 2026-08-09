@@ -30,11 +30,11 @@ The application consists of 5 microservices running on a shared Docker bridge ne
 ### 1. Build and Start the Stack
 ```bash
 docker compose up --build -d
-```bash
+```
 ### 2. Verify Running Services
 ```bash
 docker compose ps
-```bash
+```
 ### 3. Access Applications
 Library Web Application: http://localhost:8080
 
@@ -43,14 +43,14 @@ Mongo Express Dashboard: http://localhost:8081
 ### 4. Stop the Application
 ```bash
 docker compose down
-```bash
+```
 ## 🛠️ Manual Step-by-Step Container Setup
 If you prefer to build and execute each container individually using docker run:
 
 ### Step 1: Create Shared Docker Network
 ```bash
 docker network create library-mern-api
-```bash
+```
 ### Step 2: Launch MongoDB
 ```bash
 docker run -d \
@@ -60,7 +60,7 @@ docker run -d \
   --net library-mern-api \
   --name mern_library_nginx_mongodb_1 \
   mongo
-```bash
+```
 ### Step 3: Launch Mongo Express
 ```bash
 docker run -d \
@@ -72,7 +72,7 @@ docker run -d \
   --net library-mern-api \
   --name mern_library_nginx_mongo-express_1 \
   mongo-express
-```bash
+```
 ### Step 4: Build and Launch Express Backend API
 ```bash
 cd ~/docker/mern_docker_demo/server
@@ -84,7 +84,7 @@ docker run -d \
   --net library-mern-api \
   --name library_mern_nginx \
   mern_library_nginx_library-api
-```bash
+```
 ### Step 5: Build and Launch React Frontend Client
 ```bash
 cd ~/docker/mern_docker_demo/client
@@ -99,7 +99,7 @@ docker run -d \
   --net library-mern-api \
   --name library_mern_frontend \
   mern_library_nginx_client
-```bash
+```
 ### Step 6: Build and Launch Nginx Reverse Proxy
 ```bash
 cd ~/docker/mern_docker_demo/nginx
@@ -110,7 +110,7 @@ docker run -d \
   --net library-mern-api \
   --name mern_library_nginx_nginx_1 \
   mern_library_nginx_nginx
-```bash
+```
 ### 📊 Viewing Logs and Troubleshooting
 Viewing Logs
 To monitor logs across individual services or the entire stack:
@@ -118,7 +118,7 @@ To monitor logs across individual services or the entire stack:
 # View aggregated Compose logs (all services)
 ```bash
 docker compose logs -f
-```bash
+```
 
 # View specific service logs individually
 ```bash
@@ -127,7 +127,7 @@ docker logs -f library_mern_frontend          # React Client
 docker logs -f library_mern_nginx             # Express API
 docker logs -f mern_library_nginx_mongodb_1   # MongoDB
 docker logs -f mern_library_nginx_mongo-express_1 # Mongo Express
-```bash
+```
 Common Issues & Solutions
 ERR_OSSL_EVP_UNSUPPORTED: Ensure client/Dockerfile uses FROM node:16-alpine. Node 17+ uses OpenSSL 3.0, which breaks legacy Webpack/react-scripts v3.
 
