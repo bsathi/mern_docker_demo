@@ -30,25 +30,29 @@ The application consists of 5 microservices running on a shared Docker bridge ne
 ### 1. Build and Start the Stack
 ```bash
 docker compose up --build -d
-2. Verify Running Services
-Bash
+```bash
+### 2. Verify Running Services
+```bash
 docker compose ps
-3. Access Applications
+```bash
+### 3. Access Applications
 Library Web Application: http://localhost:8080
 
 Mongo Express Dashboard: http://localhost:8081
 
-4. Stop the Application
-Bash
+### 4. Stop the Application
+```bash
 docker compose down
-🛠️ Manual Step-by-Step Container Setup
+```bash
+## 🛠️ Manual Step-by-Step Container Setup
 If you prefer to build and execute each container individually using docker run:
 
-Step 1: Create Shared Docker Network
-Bash
+### Step 1: Create Shared Docker Network
+```bash
 docker network create library-mern-api
-Step 2: Launch MongoDB
-Bash
+```bash
+### Step 2: Launch MongoDB
+```bash
 docker run -d \
   -p 27017:27017 \
   -e MONGO_INITDB_ROOT_USERNAME=admin \
@@ -56,8 +60,9 @@ docker run -d \
   --net library-mern-api \
   --name mern_library_nginx_mongodb_1 \
   mongo
-Step 3: Launch Mongo Express
-Bash
+```bash
+### Step 3: Launch Mongo Express
+```bash
 docker run -d \
   -p 8081:8081 \
   -e ME_CONFIG_MONGODB_ADMINUSERNAME=admin \
@@ -67,8 +72,9 @@ docker run -d \
   --net library-mern-api \
   --name mern_library_nginx_mongo-express_1 \
   mongo-express
-Step 4: Build and Launch Express Backend API
-Bash
+```bash
+### Step 4: Build and Launch Express Backend API
+```bash
 cd ~/docker/mern_docker_demo/server
 docker build -t mern_library_nginx_library-api .
 
@@ -78,8 +84,9 @@ docker run -d \
   --net library-mern-api \
   --name library_mern_nginx \
   mern_library_nginx_library-api
-Step 5: Build and Launch React Frontend Client
-Bash
+```bash
+### Step 5: Build and Launch React Frontend Client
+```bash
 cd ~/docker/mern_docker_demo/client
 docker build -t mern_library_nginx_client .
 
@@ -92,8 +99,9 @@ docker run -d \
   --net library-mern-api \
   --name library_mern_frontend \
   mern_library_nginx_client
-Step 6: Build and Launch Nginx Reverse Proxy
-Bash
+```bash
+### Step 6: Build and Launch Nginx Reverse Proxy
+```bash
 cd ~/docker/mern_docker_demo/nginx
 docker build -t mern_library_nginx_nginx .
 
@@ -102,20 +110,24 @@ docker run -d \
   --net library-mern-api \
   --name mern_library_nginx_nginx_1 \
   mern_library_nginx_nginx
-📊 Viewing Logs and Troubleshooting
+```bash
+### 📊 Viewing Logs and Troubleshooting
 Viewing Logs
 To monitor logs across individual services or the entire stack:
 
-Bash
 # View aggregated Compose logs (all services)
+```bash
 docker compose logs -f
+```bash
 
 # View specific service logs individually
+```bash
 docker logs -f mern_library_nginx_nginx_1    # Nginx Proxy
 docker logs -f library_mern_frontend          # React Client
 docker logs -f library_mern_nginx             # Express API
 docker logs -f mern_library_nginx_mongodb_1   # MongoDB
 docker logs -f mern_library_nginx_mongo-express_1 # Mongo Express
+```bash
 Common Issues & Solutions
 ERR_OSSL_EVP_UNSUPPORTED: Ensure client/Dockerfile uses FROM node:16-alpine. Node 17+ uses OpenSSL 3.0, which breaks legacy Webpack/react-scripts v3.
 
